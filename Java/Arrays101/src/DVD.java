@@ -9,6 +9,6 @@ public class DVD {
         this.director = director;
     }
     public String toString(){
-        return this.name + ", directed by " + this.releaseYear + ", released in " + this.director;
+        return this.name + ", directed by " + this.director + ", released in " + this.releaseYear;
     }
 }
