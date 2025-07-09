@@ -166,11 +166,12 @@ x = "\r"                # Carriage return
 x = "\t"                # Tab
 x = "\b"                # Backspace
 x = "\f"                # Form feed
-x = "\ooo"              # Octal value
-x = "\xhh"              # Hex value
+#x = "\ooo"              # Octal value
+#x = "\xhh"              # Hex value
 
 #String methods
-a = "Hello"
+a = "Hello World"
+"""
 a.capitalize()          # Converts the first character to upper case
 a.casefold()            # Converts string into lower case (more aggressive than lower())
 a.center()              # Returns a centered string
@@ -216,3 +217,123 @@ a.title()               # Converts the first character of each word to upper cas
 a.translate()           # Returns a translated string
 a.upper()               # Converts a string into upper case
 a.zfill()               # Fills the string with a specified number of 0 values at the beginning
+"""
+
+# Booleans
+a = 10
+b = 9
+print(a > b)
+print(a == b)
+print(a < b)
+x = bool(a)             # This function allows you to evaluate any value, and give you True or False in return
+# except empty values, such as (), [], {}, "", the number 0, and the value None. And of course the value False evaluates to False.
+
+"""
+for example
+
+class myclass():
+    def __len__(self):
+        return 0
+
+myobj = myclass()
+print(bool(myobj))
+
+
+"""
+#You can execute code based on the Boolean answer of a function
+def myFunction() :
+    return True
+
+if myFunction():
+    print("YES!")
+else:
+    print("NO!")    
+
+x = 200
+print(isinstance(x, int))       # Which can be used to determine if an object is of a certain data type
+
+#Arithmetic Operators
+x = 2
+y = 3
+
+z = x + y                       # Addition
+z = x - y                       # Subtraction
+z = x * y                       # Multiplication
+z = x / y                       # Division
+z = x % y                       # Modulus
+z = x ** y                      # Exponentiation
+z = x // y                      # Floor division
+
+#Assignment Operators
+
+x = 5
+x += 3                          # Addition assignment
+x -= 2                          # Subtraction assignment
+x *= 4                          # Multiplication assignment
+x /= 2                          # Division assignment
+x %= 3                          # Modulus assignment
+x //= 2                         # Floor division assignment
+x **= 3                         # Exponentiation assignment
+x &= 2                          # Bitwise AND assignment
+x |= 2                          # Bitwise OR assignment
+x ^= 2                          # Bitwise XOR assignment
+x >>= 1                         # Bitwise right shift assignment
+x <<= 1                         # Bitwise left shift assignment
+print(x := 3)                   # Print into 
+
+#Comparison Operators
+
+a = 1
+b = 2
+print(a == b)                   # Equal to
+print(a != b)                   # Not equal to
+print(a < b)                    # Less than
+print(a > b)                    # Greater than
+print(a >= b)                   # Greater than or equal to
+print(a <= b)                   # Less than or equal to 
+
+#Logical Operators
+if a < 5 and a < 10:            # True if both conditions are true (AND)
+    print("Yes")
+if a < 5 or a < 4:              # True if at least one condition is true (OR)
+    print("Yes")
+if not(a < 5 and a < 10):       # True if the condition inside not is false (NOT)
+    print("False")
+
+#Identity Operators
+a is b                          # Used to compare the objects
+a is not b                      # but if they are actually the same object, with the same memory location
+
+#Membership Operators
+a in b                          # Returns True if a sequence with the specified value is present in the object
+a not in b                      # Returns True if a sequence with the specified value is not present in the object
+
+#Bitwise Operators
+x = 5                           # 0101
+y = 3                           # 0011
+
+z = x & y   # Bitwise AND:        0001 (1)      Sets each bit to 1 if both bits are 1
+z = x | y   # Bitwise OR:         0111 (7)      Sets each bit to 1 if one of two bits is 1
+z = x ^ y   # Bitwise XOR:        0110 (6)      Sets each bit to 1 if only one of two bits is 1
+z = ~x      # Bitwise NOT:        -(x+1) (-6)   Inverts all the bits
+z = x << 1  # Bitwise left shift: 1010 (10)     Shift left by pushing zeros in from the right and let the leftmost bits fall off
+z = x >> 1  # Bitwise right shift:0010 (2)      Shift right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off
+
+#Operator precedence
+# Operator precedence (from highest to lowest):
+
+# 1. () Parentheses
+# 2. ** Exponentiation
+# 3. +x, -x, ~x (Unary plus, minus, bitwise NOT)
+# 4. *, /, //, %
+# 5. +, -
+# 6. <<, >>
+# 7. &
+# 8. ^
+# 9. |
+# 10. ==, !=, >, >=, <, <=, is, is not, in, not in  Comparison operators
+# 11. not
+# 12. and
+# 13. or
+# 14. (=, +=, -=, etc.) Assignment operators 
+# 15. Lambda expressions
