@@ -7,3 +7,8 @@ def solution(a):
     return new_word
 a = input()
 print(solution(a))
+
+# Another more streamlined solution
+
+a = input()
+print(a[0].upper() + a[1:])
