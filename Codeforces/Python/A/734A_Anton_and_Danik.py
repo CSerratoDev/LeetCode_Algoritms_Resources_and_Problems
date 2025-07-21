@@ -23,3 +23,18 @@ elif danik > anton:
 	print('Danik')
 else:
 	print('Friendship')
+	
+#Optimal version
+
+n = readInt()
+s = readLine()
+
+a = s.count('A')
+d = s.count('D')
+
+if a > d:
+	print('Anton')
+elif d > a:
+	print('Danik')
+else:
+	print('Friendship')
