@@ -49,13 +49,11 @@ int main() {
     int count = 0;
     vector<int> ipClass;
     Subnets s;
-
     cout << "Enter Network IP: ";
     cin >> s.ip;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Enter number subnets that you need: ";
     cin >> s.numberSubnets;
-    
     try {
         //data registered
         for (int i = 0; i < 20; i++) {
@@ -75,12 +73,10 @@ int main() {
                 throw runtime_error("");
             }
         }
-
         // Last digit push
         if (!aux.empty()) {
             ipClass.push_back(stoi(aux));
         };
-
         // ipClass -> bits
         for (size_t i = 0; i < ipClass.size(); ++i) {
             cout << convertToBits(ipClass[i]);
