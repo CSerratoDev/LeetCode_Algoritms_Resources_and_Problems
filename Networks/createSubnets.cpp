@@ -10,34 +10,26 @@ struct Subnets {
     int mask;
 };
 
-void typeClass(int c){
+void specialSpace() {
+    for (int i = 0; i < 20; i++) {
+            cout<<"*";
+    };
+}
+
+string typeClass(int c){
     switch (c) {
-        case 1:
-            cout << "\nClass A";
-            break;
-        case 2:
-            cout << "\nClass B";
-            break;
-        case 3:
-            cout << "\nClass C";
-            break;
-        default:
-            cout << "\nClass undefined";
-            break;
+        case 1: return "Class A";
+        case 2: return "Class B";
+        case 3: return "Class C";
+        default: return "Class Undefined";
     }
 };
 
 string typeMask(int m){
-    string mask;
-    if (m == 3) {
-        return mask = "255.255.255.0";
-    } else if (m == 2) {
-        return mask = "255.255.0.0";
-    } else if (m == 1) {
-        return mask = "255.0.0.0";
-    } else {
-        return "This mask don't exist";
-    }
+    if (m == 3) return "255.255.255.0";
+    if (m == 2) return "255.255.0.0";
+    if (m == 1) return "255.0.0.0";
+    return "This mask don't exist";
 };
 
 bitset<8> convertToBits(int b) {
@@ -56,10 +48,8 @@ int main() {
     cin >> s.numberSubnets;
     try {
         //data registered
-        for (int i = 0; i < 20; i++) {
-            cout<<"*";
-        };
-        cout << "\nNetwork Registered\n";
+        specialSpace();
+        cout << "\033[31m" << "\nNetwork Registered\n" << "\033[0m";
         cout << "Network IP: " << s.ip << "\nSubnets: " << s.numberSubnets << endl;
         
         // Convert string -> vector<int>
@@ -78,20 +68,27 @@ int main() {
             ipClass.push_back(stoi(aux));
         };
         // ipClass -> bits
-        for (size_t i = 0; i < ipClass.size(); ++i) {
+        /* for (size_t i = 0; i < ipClass.size(); ++i) {
             cout << convertToBits(ipClass[i]);
             cout << " | ";
-        }
+        }*/
         //Are there zeros?
         for (int n : ipClass) {
-            if (n == 0) {
-                typeClass(count);
-                mask = typeMask(count);
+            if (n <= 127) {
+                cout << typeClass(1) << endl;
+                mask = typeMask(1);
+                break;
+            } else if (n <= 191) {
+                cout << typeClass(2) << endl;
+                mask = typeMask(2);
+                break;
+            } else if(n >= 192 and n <= 223) {
+                cout << typeClass(3) << endl;
+                mask = typeMask(3);
                 break;
             }
-            count++;
         }
-        cout<< "\nMask: " << mask << endl;
+        cout << "Mask: " << mask << endl;
     } catch (const runtime_error& e) {
         cerr << "\nThis Network IP don't exits" << e.what() << endl;
     }
