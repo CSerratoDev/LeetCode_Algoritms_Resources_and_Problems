@@ -50,10 +50,25 @@ string typeClass(int c){
 };
 
 string typeMask(int m){
+    /*
     if (m == 3) return "255.255.255.0";
     if (m == 2) return "255.255.0.0";
     if (m == 1) return "255.0.0.0";
     return "This mask don't exist";
+    */
+    if(m < 0 || m > 32) {
+        return "This mask don't exist";
+    }
+
+    bitset<32> mask((~0u) << (32 - m));
+
+    string result;
+    for(int i=3; i>=0; i--) {
+        unsigned int octet = (mask.to_ulong() >> (i*8)) & 0xFF;
+        result += to_string(octet);
+        if(i>0) result += ".";
+    }
+    return result;
 };
 
 bitset<8> convertToBits(int b) {
@@ -102,15 +117,15 @@ int main() {
         for (int n : ipClass) {
             if (n <= 127) {
                 cout << typeClass(1) << endl;
-                mask = typeMask(1);
+                mask = typeMask(s.mask);
                 break;
             } else if (n <= 191) {
                 cout << typeClass(2) << endl;
-                mask = typeMask(2);
+                mask = typeMask(s.mask);
                 break;
             } else if(n >= 192 and n <= 223) {
                 cout << typeClass(3) << endl;
-                mask = typeMask(3);
+                mask = typeMask(s.mask);
                 break;
             }
         }
