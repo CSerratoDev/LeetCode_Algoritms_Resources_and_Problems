@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <bitset>
+#include <cmath>
 using namespace std;
 
 struct Subnets {
@@ -11,10 +12,33 @@ struct Subnets {
 };
 
 void specialSpace() {
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 30; i++) {
             cout<<"*";
     };
+    cout << endl;
 }
+
+vector<vector<int>> createSubnetRange(int networks, int numberSubnets) {
+    vector<vector<int>> result;
+    int subnetSize = networks / numberSubnets;
+    for (int i = 0; i < numberSubnets; i++) {
+        int networksAddress = i * subnetSize;
+        int firstHost = networksAddress + 1;
+        int lastHost = networksAddress + subnetSize - 2;
+        int broadcastAddress = networksAddress + subnetSize - 1;
+        result.push_back({networksAddress, firstHost, lastHost, broadcastAddress});
+    }
+    return result;
+};
+
+vector<vector<int>> networks(int mask, int numberSubnets) {
+    //Starts at 0 
+    int base = 2;
+    int rangeBits = 32 - mask;
+    int networks = static_cast<int>(pow(base, rangeBits));
+    int hosts = networks - 2;
+    return createSubnetRange(networks, numberSubnets);
+};
 
 string typeClass(int c){
     switch (c) {
@@ -44,6 +68,8 @@ int main() {
     cout << "Enter Network IP: ";
     cin >> s.ip;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Enter mask: ";
+    cin >> s.mask;
     cout << "Enter number subnets that you need: ";
     cin >> s.numberSubnets;
     try {
@@ -89,6 +115,21 @@ int main() {
             }
         }
         cout << "Mask: " << mask << endl;
+        specialSpace();
+        if(s.numberSubnets <= 32) {
+            vector<vector<int>> subnets = networks(s.mask, s.numberSubnets);
+            cout<<"Subnets Generated" << endl;
+            for (size_t i = 0; i < subnets.size(); i++) {
+                cout << "Subnet " << i << " -> "
+                    << "Network: " << subnets[i][0]
+                    << ", First Host: " << subnets[i][1]
+                    << ", Last Host: " << subnets[i][2]
+                    << ", Broadcast: " << subnets[i][3] << endl;
+            }
+            specialSpace();
+        } else {
+            cerr << "\nThat number of subnets is an invalid range";
+        }
     } catch (const runtime_error& e) {
         cerr << "\nThis Network IP don't exits" << e.what() << endl;
     }
