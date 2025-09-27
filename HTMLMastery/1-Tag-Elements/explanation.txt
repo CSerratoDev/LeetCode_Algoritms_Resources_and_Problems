@@ -1,0 +1,8 @@
+Element - An HTML element is defined always by a start tag, some content, and end tag
+
+Code:
+Star tag - Element content - End tag
+<tagname> Content </tagname> 
+
+Important!
+Some HTML elements have no content (like the <br> element) and empty elements do not have an end tag.

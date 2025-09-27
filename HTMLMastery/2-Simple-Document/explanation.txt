@@ -1,0 +1,7 @@
+DOCTYPE - Declaration defines that this document is an HTML5 document 
+html - Is the root element of an HTML page
+head - Contains meta information about the HTML page
+title - Specifies a title for the HTML page
+body - Defines the document's body, and is a container for all the visible contents
+h1 - Defines a large heading
+p - Defines a paragraph

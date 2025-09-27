@@ -1,0 +1,22 @@
+Heading <h1> ... <h6> - Defines a text as the most important or least important heading
+Link <a> - Specifies that an href attribute is used to provide additional information about HTML elements
+Image <img> - Displays an image that requests the source file, alternative text, width and height
+Attribute: 
+- All HTML elements can have attributes
+- provide additional information about elements
+- are always specified in the start tag
+- usually come in name/value pairs like: name"value"
+
+Example:
+lang - Declares the language of the Web page. This is meant to assist search engines and browsers.
+- The first two characters define the language of the HTML page
+- The last two characters define the country.
+style - Adds styles to an element
+title - Displays a tooltip when you mouse over the element
+
+Important!
+<p> - With HTML you cannot change the display by adding extra spaces or extra lines in your HTML code
+- The browser with automatically remove any extra spaces and lines when the page is displayed
+
+Horizontal Rules - Defines a thematic break, is used to separate content 
+pre - Defines preformatted text
