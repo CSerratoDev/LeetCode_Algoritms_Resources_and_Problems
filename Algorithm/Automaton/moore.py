@@ -1,4 +1,3 @@
-import string
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -15,7 +14,7 @@ def leer_archivo_entradas(ruta: str):
             lineas = [line.strip().lower() for line in f.readlines() if line.strip()]
 
         if len(lineas) < 2:
-            print(" l archivo debe tener al menos 2 líneas (alfabeto y desplazamiento).")
+            print("El archivo debe tener al menos 2 líneas (alfabeto y desplazamiento).")
             return None, None
 
         entrada = lineas[0]
@@ -43,18 +42,18 @@ def generar_maquina_moore(entrada=None, n=None):
     if entrada is None or n is None:
         entrada = input("Ingrese un alfabeto de entrada (ej: abcñ): ").strip().lower()
         if not entrada:
-            print("⚠️ La cadena es nula.")
+            print("La cadena es nula.")
             return
 
         for c in entrada:
             if c not in alfabeto_espanol:
-                print(f"⚠️ Carácter no válido: {c}")
+                print(f"Carácter no válido: {c}")
                 return
 
         try:
             n = int(input("Ingrese un desplazamiento n: "))
         except ValueError:
-            print("⚠️ El desplazamiento debe ser un número entero.")
+            print("El desplazamiento debe ser un número entero.")
             return
 
     #Calcular alfabeto desplazado
