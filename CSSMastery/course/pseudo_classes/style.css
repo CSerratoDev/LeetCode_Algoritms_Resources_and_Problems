@@ -1,0 +1,26 @@
+input:focus{
+    outline: 2px solid blue;
+    background-color: cyan;
+}
+
+li:first-child {
+    color: red;
+}
+
+li:last-child {
+    color: green;
+}
+
+tr:nth-child(even) {
+    background-color: yellow;
+}
+
+.quote::after {
+    content: '"';
+    color: orange;
+}
+
+.quote::before {
+    content: '"';
+    color: blueviolet;
+}
