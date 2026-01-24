@@ -18,6 +18,16 @@ public class Partner {
 
     private LocalDate fechaRegistro;
 
+    @Column(name = "fecha_vencimiento")
+    private LocalDate fechaVencimiento;
+
+    public LocalDate getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
     private boolean activo;
 
     // --- CONSTRUCTORES ---

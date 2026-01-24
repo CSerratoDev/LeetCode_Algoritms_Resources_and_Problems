@@ -1,62 +1,279 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Gimnasio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #fff;
+        }
+        .dashboard {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .sidebar {
+            width: 100%;
+            min-width: 200px;
+            max-width: 300px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            border-right: 2px inset #252525;
+            h2 {
+                display: block;
+                text-align: center;
+                margin-top: 30px;
+                margin-bottom: 30px;
+                text-transform: uppercase;
+            }
+            i {
+                height: 30px;
+                width: 30px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                color: #252525;
+                border-radius: 50%;
+            }
+            a {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                text-decoration: none;
+                color: black;
+                padding: 12px;
+            }
+        }
+
+        .links a:hover {
+            background-color: #252525;
+            color: white;
+            i:before {
+                color: white;
+            }
+        }
+
+        .date-info {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .user-pill {
+            background-color: #252525;
+            color: white;
+            padding: 6px 16px;
+            width: 100%;
+            display: flex;
+            margin-top: auto;
+            text-align: left;
+            align-items: center;
+            i {
+                font-size: 1.2rem;
+                margin-right: 18px;
+                color: white;
+                padding: 6px;
+            }
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 12px;
+
+            h2 {
+                margin-bottom: 15px;
+            }
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+        }
+        .search-input {
+            width: 100%;
+            border-radius: 30px;
+            padding: 15px 50px 15px 25px;
+            border: none;
+            font-size: 1rem;
+        }
+        .search-btn {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            font-size: 1rem;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            thead th {
+                background-color: #212529;
+                color: white;
+                padding: 15px;
+                border: none;
+                text-transform: uppercase;
+                font-weight: 200;
+            }
+        }
+        .custom-table thead th:first-child { border-top-left-radius: 30px; border-bottom-left-radius: 0px; }
+        .custom-table thead th:last-child { border-top-right-radius: 30px; border-bottom-right-radius: 0px; }
+
+        .custom-table tbody tr {
+            border-bottom: 2px solid #999;
+        }
+
+        .custom-table td {
+            padding: 16px;
+            vertical-align: middle;
+            font-weight: 500;
+            border-bottom: 2px solid #555;
+        }
+
+        .status-active {
+            background-color: greenyellow;
+            padding: 6px 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 12px;
+        }
+        .status-expired {
+            background-color: mediumvioletred;
+            padding: 6px 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 12px;
+        }
+
+        .btn-edit {
+            background-color: yellow;
+            color: #252525;
+            border-radius: 12px;
+            padding: 6px 18px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 6px;
+        }
+        .btn-delete {
+            background-color: #252525;
+            color: white;
+            border-radius: 12px;
+            padding: 6px 18px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .btn-delete:hover {
+            color: red;
+        }
+        .btn-edit:hover {
+            background-color: darkorange;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Panel de Control</h2>
+            <div class="links">
+                <a href="/socios/nuevo" class="">
+                    <i class="fa-solid fa-plus"></i>
+                    NUEVO SOCIO
+                </a>
+                <a class="">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    HORARIOS
+                </a>
+                <a class="">
+                    <i class="fa-solid fa-ticket"></i>
+                    PROMOCIONES
+                </a>
+            </div>
+            <div class="date-info">
+                <strong>Fecha de hoy</strong>
+                <span th:text="${#temporals.format(T(java.time.LocalDate).now(), 'dd MMMM yyyy')}">22 Enero 2026</span>
+                <br>
+                <strong>Hora en vivo</strong>
+                <span th:text="${#temporals.format(T(java.time.LocalDateTime).now(), 'HH:mm')} + 'am'">11:00am</span>
+            </div>
 
-<div class="container mt-5">
-    <h1 class="text-center text-primary mb-4">🏋️ Listado de Socios</h1>
+            <div class="user-pill">
+                <i class="fa-solid fa-user"></i>
+                <span>USUARIO</span>
+            </div>
+        </div>
 
-    <div class="mb-3 text-end">
-        <a href="/socios/nuevo" class="btn btn-primary">
-            + Nuevo Socio
-        </a>
-    </div>
+        <div class="main-content">
+            <h2>GIMNASIO NOMBRE DE LA EMPRESA</h2>
+            <div>
+                <form th:action="@{/socios}" method="get" class="search-container">
+                    <input class="search-input" type="search" name="palabraClave"
+                           placeholder="BUSCAR" th:value="${palabraClave}">
+                    <button type="submit" class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
 
-    <div class="mb-3 text-end">
-        <a href="/socios" class="btn btn-danger">
-            - Eliminar Socio
-        </a>
-    </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>TELÉFONO</th>
+                            <th>ESTATUS</th>
+                            <th class="text-end">ACCIONES</th>
+                        </tr>
+                    </thead>
 
-    <div class="card shadow">
-        <div class="card-body">
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr th:each="partner : ${partners}">
-                    <td th:text="${partner.id}">1</td>
-                    <td th:text="${partner.nombre}">Juan Ejemplo</td>
-                    <td th:text="${partner.email}">juan@gmail.com</td>
-                    <td><span class="badge bg-success">Activo</span></td>
-                    <td>
-                        <a th:href="@{/socios/editar/{id}(id=${partner.id})}" class="btn btn-warning btn-sm">
-                            ✏️ Editar
-                        </a>
-
-                        <a th:href="@{/socios/eliminar/{id}(id=${partner.id})}"
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('¿Estás seguro de eliminar a este socio?')">
-                            🗑️ Eliminar
-                        </a>
+                    <tbody>
+                    <tr th:each="partner : ${partners}">
+                        <td th:text="${partner.nombre}">PEDRO</td>
+                        <td th:text="${partner.email}">442000000</td> <td>
+                            <span th:if="${partner.fechaVencimiento != null and !partner.fechaVencimiento.isBefore(T(java.time.LocalDate).now())}"
+                                  class="status-active">
+                                ACTIVO
+                            </span>
+                        <span th:if="${partner.fechaVencimiento != null and partner.fechaVencimiento.isBefore(T(java.time.LocalDate).now())}"
+                              class="status-expired">
+                                VENCIDO
+                            </span>
                     </td>
-                </tr>
-                </tbody>
-            </table>
+                        <td class="text-end">
+                            <a th:href="@{/socios/editar/{id}(id=${partner.id})}" class="btn-edit">
+                                EDITAR
+                            </a>
+                            <a th:href="@{/socios/eliminar/{id}(id=${partner.id})}"
+                               class="btn-delete"
+                               onclick="return confirm('¿Eliminar socio?')">
+                                ELIMINAR
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(partners)}">
+                        <td colspan="4" class="text-center text-muted">No hay socios registrados</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-
 </body>
 </html>

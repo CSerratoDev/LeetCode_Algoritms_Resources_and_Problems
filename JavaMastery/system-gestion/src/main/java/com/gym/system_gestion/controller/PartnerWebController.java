@@ -5,10 +5,9 @@ import com.gym.system_gestion.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller; // Ojo: ya no es RestController
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller // Esto dice: "Yo controlo pantallas HTML"
 public class PartnerWebController {
@@ -16,16 +15,25 @@ public class PartnerWebController {
     @Autowired
     private PartnerRepository partnerRepository;
 
+    @GetMapping("/inicio")
+    public String login(){
+        return "login";
+    }
+
     @GetMapping("/socios") // URL: localhost:8080/socios
-    public String listarSocios(Model model) {
-        // 1. Buscamos todos los socios en la BD
-        var listaSocios = partnerRepository.findAll();
+    public String listarSocios(Model model, @RequestParam(name = "palabraClave", required = false) String palabraClave) {
+        List<Partner> listaSocios;
+        if (palabraClave != null && !palabraClave.isEmpty()) {
+            // Si hay palabra clave, usamos nuestro buscador mágico
+            listaSocios = partnerRepository.findByNombreContainingIgnoreCase(palabraClave);
+        } else {
+            // Si no hay nada, traemos todo (como antes)
+            listaSocios = partnerRepository.findAll();
+        }
 
-        // 2. "Pegamos" la lista al modelo para que el HTML la pueda leer
-        // "partners" será la variable que usaremos en el HTML
         model.addAttribute("partners", listaSocios);
+        model.addAttribute("palabraClave", palabraClave); // Para mantener el texto en la cajita
 
-        // 3. Retornamos el nombre del archivo HTML (sin el .html)
         return "lista-socios";
     }
     // 1. Mostrar el formulario vacío

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            margin: 0;
+            height: 100%;
+            font-family : Arial, Helvetica, sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: darkorange;
+        }
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+        .login {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            width: 60%;
+            padding: 40px;
+        }
+        .right-side {
+            width: 40%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding: 30px;
+        }
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .info-dev {
+            position: relative;
+            text-align: right;
+            z-index: 2;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            width: 100%;
+            max-width: 300px;
+
+            a {
+                display: block;
+                padding: 12px;
+                text-align: center;
+                border-radius: 3px;
+            }
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 3px;
+        }
+        input {
+            margin-top: 6px;
+            border: 1px solid #ccc;
+        }
+        .btn-login {
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            background-color: black;
+            color: white;
+        }
+        .btn-register {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+    <section class="login">
+        <h1>Inicio de Sesión</h1>
+
+        <div th:if="${param.error}" style="color: red;">
+            Usuario o contraseña incorrectos.
+        </div>
+
+        <form th:action="@{/login}" method="POST" style="width: 100%; max-width: 300px;">
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" name="username" placeholder="Nombre de Usuario" required />
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" placeholder="••••••••" required /><br/>
+            </div>
+            <div class="form-group">
+                <a type="submit" href="/socios" class="btn-login">Entrar</a>
+                <a type="submit" href="/registrar" class="btn-register">Registrar</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="right-side">
+        <img src="https://res.cloudinary.com/drxg6xc6a/image/upload/v1769207529/ai_gym_girl_pxpyiz.png" class="bg-image">
+
+        <div class="info-dev">
+            <h3>Desarrollado por Alexis Serrato</h3>
+            <a href="https://www.cserrato.dev/" class="btn">
+                cserrato.dev
+            </a>
+        </div>
+    </section>
+    </div>
+</body>
+</html>

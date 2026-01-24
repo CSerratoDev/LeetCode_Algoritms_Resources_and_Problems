@@ -1,43 +1,210 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo Socio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #fff;
+        }
+        a {
+            text-decoration: none;
+            color: red;
+        }
+        .dashboard {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .sidebar {
+            width: 100%;
+            min-width: 200px;
+            max-width: 300px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            border-right: 2px inset #252525;
+            h2 {
+                display: block;
+                text-align: center;
+                margin-top: 30px;
+                margin-bottom: 30px;
+                text-transform: uppercase;
+            }
+            i {
+                height: 30px;
+                width: 30px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                color: #252525;
+                border-radius: 50%;
+            }
+            a {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                text-decoration: none;
+                color: black;
+                padding: 12px;
+            }
+        }
+
+        .links a:hover {
+            background-color: #252525;
+            color: white;
+            i:before {
+                color: white;
+            }
+        }
+
+        .date-info {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .user-pill {
+            background-color: #252525;
+            color: white;
+            padding: 6px 16px;
+            width: 100%;
+            display: flex;
+            margin-top: auto;
+            text-align: left;
+            align-items: center;
+            i {
+                font-size: 1.2rem;
+                margin-right: 18px;
+                color: white;
+                padding: 6px;
+            }
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 12px;
+
+            h2 {
+                margin-bottom: 15px;
+            }
+        }
+        .form-wrapper {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            width: 100%;
+            max-width: 300px;
+
+            a {
+                margin-top: 16px;
+                text-align: center;
+                display: block;
+            }
+        }
+        input, button{
+            width: 100%;
+            padding: 12px;
+            border-radius: 3px;
+        }
+        input {
+            margin-top: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-save {
+            background-color: forestgreen;
+            color: white;
+        }
+        .btn-cancel {
+            background-color: mediumvioletred;
+            padding: 12px;
+            color: white;
+            border-radius: 3px;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Panel de Control</h2>
+            <div class="links">
+                <a href="/socios/nuevo" class="">
+                    <i class="fa-solid fa-plus"></i>
+                    NUEVO SOCIO
+                </a>
+                <a class="">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    HORARIOS
+                </a>
+                <a class="">
+                    <i class="fa-solid fa-ticket"></i>
+                    PROMOCIONES
+                </a>
+            </div>
+            <div class="date-info">
+                <strong>Fecha de hoy</strong>
+                <span th:text="${#temporals.format(T(java.time.LocalDate).now(), 'dd MMMM yyyy')}">22 Enero 2026</span>
+                <br>
+                <strong>Hora en vivo</strong>
+                <span th:text="${#temporals.format(T(java.time.LocalDateTime).now(), 'HH:mm')} + 'am'">11:00am</span>
+            </div>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4>📝 Registrar Nuevo Socio</h4>
+            <div class="user-pill">
+                <i class="fa-solid fa-user"></i>
+                <span>USUARIO</span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-wrapper">
+            <h1>Nuevo Socio</h1>
+            <form th:action="@{/socios/guardar}" th:object="${partner}" method="POST" style="width: 100%; max-width: 300px">
+                <input type="hidden" th:field="*{id}" />
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" th:field="*{nombre}" placeholder="Luis Martinez" required>
                 </div>
-                <div class="card-body">
-                    <form th:action="@{/socios/guardar}" th:object="${partner}" method="POST">
-
-                        <input type="hidden" th:field="*{id}" />
-
-                        <div class="mb-3">
-                            <label class="form-label">Nombre Completo</label>
-                            <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Ana López" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" th:field="*{email}" class="form-control" placeholder="ana@mail.com" required>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success">Guardar Socio</button>
-                            <a href="/socios" class="btn btn-secondary">Cancelar</a>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" th:field="*{email}" placeholder="luis@gmail.com" required>
                 </div>
+                <div class="form-group">
+                    <label>Fecha de Vencimiento</label>
+                    <input type="date" th:field="*{fechaVencimiento}" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn-save">Guardar Socio</button>
+                    <a href="/socios" class="btn-cancel">Cancelar</a>
+                </div>
+            </form>
             </div>
         </div>
     </div>
-</div>
-
 </body>
 </html>
