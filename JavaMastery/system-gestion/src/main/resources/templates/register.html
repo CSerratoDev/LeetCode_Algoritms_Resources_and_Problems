@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
-    <link th:href="@{/css/login.css}" rel="stylesheet">
+    <link th:href="@{/css/register.css}" rel="stylesheet">
 
     <style>
         * {
@@ -24,7 +24,7 @@
             width: 100%;
             height: 100vh;
         }
-        .login {
+        .register {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -96,14 +96,14 @@
 </head>
 <body>
     <div class="main-wrapper">
-    <section class="login">
-        <h1>Inicio de Sesión</h1>
+    <section class="register">
+        <h1>Registrarse</h1>
 
         <div th:if="${param.error}" style="color: red;">
             Usuario o contraseña incorrectos.
         </div>
 
-        <form th:action="@{/login}" method="POST" style="width: 100%; max-width: 300px;">
+        <form th:action="@{/register}" method="POST" style="width: 100%; max-width: 300px;">
             <div class="form-group">
                 <label>Usuario</label>
                 <input type="text" name="username" placeholder="Nombre de Usuario" required />
@@ -112,9 +112,16 @@
                 <label>Contraseña</label>
                 <input type="password" name="password" placeholder="••••••••" required /><br/>
             </div>
+            <div CLASS="form-group">
+                <label>Tipo de Rol</label>
+                <select name="role">
+                    <option name="role" value="ADMIN">Administrador</option>
+                    <option name="role" value="USER">Usuario</option>
+                </select>
+            </div>
             <div class="form-group">
-                <button type="submit" class="btn-login" style="width: 100%; padding: 12px; border-radius: 3px;">Entrar</button>
-                <a href="/register" class="btn-register">Registrar</a>
+                <button type="submit" class="btn-register" style="width: 100%; padding: 12px; border-radius: 3px;">Registrar</button>
+                <a href="/login" class="btn-login">Tengo cuenta</a>
             </div>
         </form>
     </section>

@@ -129,7 +129,7 @@
             thead th {
                 background-color: #212529;
                 color: white;
-                padding: 15px;
+                padding: 12px;
                 border: none;
                 text-transform: uppercase;
                 font-weight: 200;
@@ -187,6 +187,47 @@
         .btn-edit:hover {
             background-color: darkorange;
         }
+        .page-container {
+            display: flex;
+            justify-content: center;
+            ul {
+                display: flex;
+                gap: 3px;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                li {
+                    padding: 0;
+                    margin: 0;
+
+                    &.disabled {
+                        opacity: 0.5;
+                        pointer-events: none;
+                        cursor: default;
+                    }
+
+                    &.active a {
+                        background-color: darkorange;
+                    }
+
+                    a {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                        background-color: #252525;
+                        text-decoration: none;
+                        color: white;
+                        padding: 6px 18px;
+                        border-radius: 12px;
+
+                        &hover {
+                            background-color: darkorange;
+                        }
+                    }
+                }
+            }
+        }
     </style>
 </head>
 <body>
@@ -194,6 +235,10 @@
         <div class="sidebar">
             <h2>Panel de Control</h2>
             <div class="links">
+                <a href="/socios" class="">
+                    <i class="fa-solid fa-home"></i>
+                    INICIO
+                </a>
                 <a href="/socios/nuevo" class="">
                     <i class="fa-solid fa-plus"></i>
                     NUEVO SOCIO
@@ -267,11 +312,39 @@
                         </td>
                     </tr>
 
+
                     <tr th:if="${#lists.isEmpty(partners)}">
                         <td colspan="4" class="text-center text-muted">No hay socios registrados</td>
                     </tr>
                     </tbody>
                 </table>
+
+                <nav aria-label="Navegación de socios" th:if="${partners.totalPages > 0}" class="page-container">
+                    <ul>
+                        <li class="page-item" th:classappend="${partners.first} ? 'disabled'">
+                            <a th:href="@{/socios(palabraClave=${palabraClave}, page=${partners.number - 1})}">
+                                Anterior
+                            </a>
+                        </li>
+
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence(0, partners.totalPages - 1)}"
+                            th:classappend="${i == partners.number} ? 'active'">
+
+                            <a class=""
+                               th:href="@{/socios(palabraClave=${palabraClave}, page=${i})}"
+                               th:text="${i + 1}">
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${partners.last} ? 'disabled'">
+                            <a th:href="@{/socios(palabraClave=${palabraClave}, page=${partners.number + 1})}">
+                                Siguiente
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

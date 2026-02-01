@@ -1,19 +1,19 @@
 package com.gym.system_gestion.model;
 
-import jakarta.persistence.*; // Importante: Spring Boot 3 usa 'jakarta', no 'javax'
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity // Esto le dice a Spring: "Haz una tabla de esto"
-@Table(name = "socios") // Nombre de la tabla en MySQL
+@Entity
+@Table(name = "socios")
 public class Partner {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment (1, 2, 3...)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = false, unique = true) // No puede haber dos emails iguales
+    @Column(nullable = false, unique = true)
     private String email;
 
     private LocalDate fechaRegistro;
@@ -30,10 +30,7 @@ public class Partner {
 
     private boolean activo;
 
-    // --- CONSTRUCTORES ---
-    public Partner() {
-        // Constructor vacío requerido por JPA
-    }
+    public Partner() {}
 
     public Partner(String nombre, String email) {
         this.nombre = nombre;
@@ -42,8 +39,6 @@ public class Partner {
         this.activo = true;
     }
 
-    // --- GETTERS Y SETTERS (Obligatorios) ---
-    // Puedes generarlos con clic derecho -> Source -> Generate Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }
