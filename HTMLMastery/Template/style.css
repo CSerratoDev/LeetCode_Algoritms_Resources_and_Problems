@@ -1,0 +1,12 @@
+.container {
+    border-bottom-style: solid;
+    border-width: 2px;
+}
+
+nav {
+    text-align: center;
+}
+
+li {
+    cursor: pointer;
+}
