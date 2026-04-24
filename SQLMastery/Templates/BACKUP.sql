@@ -1,0 +1,3 @@
+-- Crear un respaldo
+BACKUP DATABASE <DATABASE NAME>
+TO DISK = ´<PATH>´

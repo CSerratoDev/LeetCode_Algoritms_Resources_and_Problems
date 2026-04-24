@@ -1,0 +1,11 @@
+-- Agregar una columna
+ALTER TABLE <TABLE NAME>
+ADD <COLUMN NAME> <DATA TYPE>
+
+-- Dropear una columna
+ALTER TABLE <TABLE NAME>
+DROP COLUMN <COLUMN NAME>
+
+-- Alterar una columna y su tipo
+ALTER TABLE <TABLE NAME>
+ALTER COLUMN <COLUMN NAME> <DATA TYPE>
